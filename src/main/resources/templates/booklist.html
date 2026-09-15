@@ -4,17 +4,22 @@
 <head>
     <title>Server Programming</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link type="text/css" rel="stylesheet" href="/bootstrap.min.css" />
 </head>
 
 <body>
+
     <h2>Book List</h2>
 
-    <table>
+    <table class="table table-striped">
+
         <tr>
             <th>Title</th>
             <th>Author</th>
             <th>Publication Year</th>
             <th>Price</th>
+            <th></th>
         </tr>
 
         <tr th:each="book : ${books}">
@@ -22,12 +27,18 @@
             <td th:text="${book.author}"></td>
             <td th:text="${book.publicationYear}"></td>
             <td th:text="${book.price}"></td>
+
             <td>
-                <a th:href="@{/delete/{id}(id=${book.id})}">Delete</a>
+                <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
+
+                <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
             </td>
         </tr>
+
     </table>
-    <a href="/addbook">Add Book</a>
+
+    <a href="/addbook" class="btn btn-success">Add Book</a>
+
 </body>
 
 </html>
