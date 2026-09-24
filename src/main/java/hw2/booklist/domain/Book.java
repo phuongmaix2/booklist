@@ -1,11 +1,14 @@
 package hw2.booklist.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Book {
@@ -17,6 +20,7 @@ public class Book {
     private int publicationYear;
     private String isbn;
 
+    @JsonIgnore
     @ManyToOne 
     @JoinColumn(name = "categoryId")
     private Category category;

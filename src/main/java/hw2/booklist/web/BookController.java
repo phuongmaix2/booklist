@@ -57,5 +57,4 @@ public class BookController {
         model.addAttribute("categories", categoryRepository.findAll());
         return "editbook";
     }
-
 }

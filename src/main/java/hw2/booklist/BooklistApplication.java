@@ -59,9 +59,29 @@ public class BooklistApplication {
 
             book3.setCategory(fantasy);
 
+            Book book4 = new Book(
+                    "Pride and Prejudice",
+                    "Jane Austen",
+                    1813,
+                    "9780141439518",
+                    9.49);
+
+            book4.setCategory(romance);
+
+            Book book5 = new Book(
+                    "The Hobbit",
+                    "J.R.R. Tolkien",
+                    1937,
+                    "9780547928227",
+                    12.99);
+
+            book5.setCategory(fantasy);
+
             bookRepository.save(book1);
             bookRepository.save(book2);
             bookRepository.save(book3);
+            bookRepository.save(book4);
+            bookRepository.save(book5);
         };
     }
 }
