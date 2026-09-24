@@ -10,6 +10,7 @@ import java.util.List;
 import hw2.booklist.domain.BookRepository;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import hw2.booklist.domain.CategoryRepository;
 import hw2.booklist.domain.Book;
@@ -56,5 +57,15 @@ public class BookController {
         model.addAttribute("book", book);
         model.addAttribute("categories", categoryRepository.findAll());
         return "editbook";
+    }
+
+    @RequestMapping(value = "/books", method = RequestMethod.GET)
+    public @ResponseBody List<Book> bookListRest() {
+        return (List<Book>) bookRepository.findAll();
+    }
+
+    @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+    public @ResponseBody Book findBookRest(@PathVariable("id") Long id) {
+        return bookRepository.findById(id).orElse(null);
     }
 }
