@@ -12,6 +12,9 @@ import hw2.booklist.domain.BookRepository;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+
 import hw2.booklist.domain.CategoryRepository;
 import hw2.booklist.domain.Book;
 
@@ -24,14 +27,16 @@ public class BookController {
     private CategoryRepository categoryRepository;
 
     @RequestMapping("/booklist")
-    public String listBooks(Model model) {
+    public String listBooks(Model model, Authentication authentication) {
         List<Book> books = (List<Book>) bookRepository.findAll();
         // System.out.println(books);
         model.addAttribute("books", books);
         model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("name", authentication.getName());
         return "booklist";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long id) {
         bookRepository.deleteById(id);
@@ -67,5 +72,10 @@ public class BookController {
     @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
     public @ResponseBody Book findBookRest(@PathVariable("id") Long id) {
         return bookRepository.findById(id).orElse(null);
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 }

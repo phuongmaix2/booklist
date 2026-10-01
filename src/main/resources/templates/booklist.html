@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>Server Programming</title>
@@ -11,6 +11,13 @@
 <body>
 
     <h2>Book List</h2>
+    <p>
+        Logged in as: <span sec:authentication="name"></span>
+    </p>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
 
     <table class="table table-striped">
 
@@ -31,7 +38,9 @@
             <td th:text="${book.category.name}"></td>
 
             <td>
-                <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
+                <a sec:authorize="hasRole('ADMIN')" th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">
+                    Delete
+                </a>
 
                 <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
             </td>
