@@ -20,7 +20,7 @@ public class DataLoader {
 
             User user = new User(
                     "user",
-                    passwordEncoder.encode("password"),
+                    passwordEncoder.encode("user"),
                     "user@gmail.com",
                     "USER");
 
